@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/Mathew-Harvey/WebRTC-test/issues"
   },
-  "homepage": "https://github.com/Mathew-Harvey/WebRTC-test#readme"
+  "homepage": "https://github.com/Mathew-Harvey/WebRTC-test#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^4.1.3"
+  }
 }
