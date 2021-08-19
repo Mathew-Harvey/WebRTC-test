@@ -1,3 +1,4 @@
+require ("dotenv").config()
 const express = require('express')
 const http = require ('http')
 const app = express()
@@ -40,6 +41,6 @@ if (process.env.PROD) {
         res.sendFile(path.join(_dirname, './client/build/index.html'))
     })
 }
-const port = process.env.PRT || 8000
-server.listen(port, () => console.log('server is running on Port 8000'))
+const port = process.env.PORT || 8000
+server.listen(port, () => console.log(`server is running on Port ${port}`))
 
