@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
 "start": "PROD=true node server.js",
-"postinstall": "cd ./client && npm"
+"postinstall": "cd ./client && npm start"
   },
   "repository": {
     "type": "git",
