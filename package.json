@@ -2,7 +2,7 @@
   "name": "webrtc-test",
   "version": "1.0.0",
   "engines": {
-    "node": "7.2.6"
+    "node": "7"
   },
   "description": "",
   "main": "index.js",
