@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "start": "PROD=true node server.js",
-    "postinstall": "cd ./client && npm"
+ 
   },
   "repository": {
     "type": "git",
