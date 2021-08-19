@@ -4,6 +4,7 @@ const app = express()
 const server =  http.createServer(app)
 const socket = require('socket.io')
 const io = socket(server)
+const path = require('path')
 
 const rooms = {}
 
@@ -33,7 +34,12 @@ io.on('connection', socket => {
         io.to(incoming.target).emit('ice-candidate', incoming.candidate)
     })
 })
-
-
-server.listen(8000, () => console.log('server is running on Port 8000'))
+if (process.env.PROD) {
+    app.use(express.static(path.join(_dirname, './client/build')))
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(_dirname, './client/build/index.html'))
+    })
+}
+const port = process.env.PRT || 8000
+server.listen(port, () => console.log('server is running on Port 8000'))
 
