@@ -1,6 +1,9 @@
 {
   "name": "webrtc-test",
   "version": "1.0.0",
+  "engines": {
+    "npm": "7.2.6"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
