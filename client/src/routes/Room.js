@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from 'react'
-import io from 'socket.io-client';
+import React, { useRef, useEffect } from "react";
+import io from "socket.io-client";
 
 const Room = (props) => {
     const userVideo = useRef();
@@ -14,24 +14,23 @@ const Room = (props) => {
             userVideo.current.srcObject = stream;
             userStream.current = stream;
 
-            socketRef.current = io.connect('/');
-            socketRef.current.emit('join room', props.match.params.roomID);
+            socketRef.current = io.connect("/");
+            socketRef.current.emit("join room", props.match.params.roomID);
 
             socketRef.current.on('other user', userID => {
                 callUser(userID);
-                otherUser.current = userID
-            });
-
-            socketRef.current.on('user joined', userID => {
                 otherUser.current = userID;
             });
 
-            socketRef.current.on('offer', handleRecieveCall);
+            socketRef.current.on("user joined", userID => {
+                otherUser.current = userID;
+            });
 
-            socketRef.current.on('answer', handleAnswer);
+            socketRef.current.on("offer", handleRecieveCall);
 
-            socketRef.current.on('ice-candidate', handleNewICECandidateMsg)
+            socketRef.current.on("answer", handleAnswer);
 
+            socketRef.current.on("ice-candidate", handleNewICECandidateMsg);
         });
 
     }, []);
@@ -48,9 +47,9 @@ const Room = (props) => {
                     urls: "stun:stun.stunprotocol.org"
                 },
                 {
-                    urls: "turn:numb.viagenie.ca",
-                    credential: "muazkh",
-                    username: "webrtc@live.com"
+                    urls: 'turn:numb.viagenie.ca',
+                    credential: 'muazkh',
+                    username: 'webrtc@live.com'
                 },
             ]
         });
@@ -67,7 +66,7 @@ const Room = (props) => {
             return peerRef.current.setLocalDescription(offer);
         }).then(() => {
             const payload = {
-                targer: userID,
+                target: userID,
                 caller: socketRef.current.id,
                 sdp: peerRef.current.localDescription
             };
@@ -79,7 +78,7 @@ const Room = (props) => {
         peerRef.current = createPeer();
         const desc = new RTCSessionDescription(incoming.sdp);
         peerRef.current.setRemoteDescription(desc).then(() => {
-            userStream.current.getTracks().forEach(track => peerRef.current.addTrack(track, userStream, userStream.current));
+            userStream.current.getTracks().forEach(track => peerRef.current.addTrack(track, userStream.current));
         }).then(() => {
             return peerRef.current.createAnswer();
         }).then(answer => {
@@ -90,7 +89,7 @@ const Room = (props) => {
                 caller: socketRef.current.id,
                 sdp: peerRef.current.localDescription
             }
-            socketRef.current.emit('answer', payload);
+            socketRef.current.emit("answer", payload);
         })
     }
 
@@ -105,7 +104,7 @@ const Room = (props) => {
                 target: otherUser.current,
                 candidate: e.candidate,
             }
-            socketRef.current.emit("ice-candidate", payload)
+            socketRef.current.emit("ice-candidate", payload);
         }
     }
 
@@ -113,22 +112,19 @@ const Room = (props) => {
         const candidate = new RTCIceCandidate(incoming);
 
         peerRef.current.addIceCandidate(candidate)
-            .catch(e => console.log(e))
+            .catch(e => console.log(e));
     }
 
     function handleTrackEvent(e) {
         partnerVideo.current.srcObject = e.streams[0];
     };
 
-
-
     return (
         <div>
             <video autoPlay ref={userVideo} />
             <video autoPlay ref={partnerVideo} />
-
         </div>
     );
 };
 
-export default Room
+export default Room;
