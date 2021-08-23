@@ -16,6 +16,7 @@
 - [Application ScreenShots](#Application-ScreenShots-)
 ## Demo 💻
 ![Demo Video](/assets/webRTC.gif)
+## Launch Appliation: https://video-chat-rise-x.herokuapp.com/
 ## Description 🧐
 This project is about testing and learning about webRTC 
 ## Motivation 🚀
