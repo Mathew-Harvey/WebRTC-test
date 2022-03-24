@@ -45,7 +45,7 @@ const Room = (props) => {
         const peer = new RTCPeerConnection({
             iceServers: [
                 {
-                    urls: "stun:stun.stunprotocol.org"
+                    urls: "stun.l.google.com:19302"
                 },
                 {
                     urls: 'turn:numb.viagenie.ca',
